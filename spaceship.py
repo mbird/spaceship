@@ -105,9 +105,14 @@ class Ship:
             
 
     def update(self):
+        ACCEL = 0.05 # constant to decrease acceleration
         self.pos[0] += self.vel[0]
         self.pos[1] += self.vel[1]
         self.angle += self.angle_vel
+        self.fwd_vec = angle_to_vector(self.angle)
+        if self.thrust == True:
+            self.vel[0] += self.fwd_vec[0] * ACCEL
+            self.vel[1] += self.fwd_vec[1] * ACCEL
         
     def thruster(self):
         if self.thrust == True:

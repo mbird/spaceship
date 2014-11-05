@@ -106,10 +106,18 @@ class Ship:
 
     def update(self):
         ACCEL = 0.05 # constant to decrease acceleration
-        self.pos[0] += self.vel[0]
-        self.pos[1] += self.vel[1]
+        # wrap around when leaving screen
+        if self.pos[0] < nebula_info.get_size()[0] and self.pos[0] > 0:
+            self.pos[0] += self.vel[0]
+        else:
+            self.pos[0] = (self.pos[0] + self.vel[0]) % nebula_info.get_size()[0]
+        if self.pos[1] < nebula_info.get_size()[1] and self.pos[1] > 0:
+            self.pos[1] += self.vel[1]
+        else:
+            self.pos[1] = (self.pos[1] + self.vel[1]) % nebula_info.get_size()[1]
         self.angle += self.angle_vel
         self.fwd_vec = angle_to_vector(self.angle)
+        # accelerate when thrusting
         if self.thrust == True:
             self.vel[0] += self.fwd_vec[0] * ACCEL
             self.vel[1] += self.fwd_vec[1] * ACCEL

@@ -97,8 +97,8 @@ class Ship:
         self.radius = info.get_radius()
         
     def draw(self,canvas):
-        canvas.draw_circle(self.pos, self.radius, 1, "White", "White")
-        # canvas.draw_image(image, center_source, width_height_source, center_dest, width_height_dest, rotation)
+        #canvas.draw_circle(self.pos, self.radius, 1, "White", "White")
+        canvas.draw_image(ship_image, ship_info.get_center(), ship_info.get_size(), self.pos, ship_info.get_size(), self.angle)
 
     def update(self):
         pass

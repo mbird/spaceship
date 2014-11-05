@@ -102,12 +102,18 @@ class Ship:
         if self.thrust == True:
             canvas.draw_image(ship_image, (ship_info.get_center()[0] + ship_info.get_size()[0], ship_info.get_center()[1]),
                                            ship_info.get_size(), self.pos, ship_info.get_size(), self.angle)
-
+            
 
     def update(self):
         self.pos[0] += self.vel[0]
         self.pos[1] += self.vel[1]
         self.angle += self.angle_vel
+        
+    def thruster(self):
+        if self.thrust == True:
+            ship_thrust_sound.play()
+        elif self.thrust == False:
+            ship_thrust_sound.rewind()
         
     
 # Sprite class
@@ -156,6 +162,9 @@ def draw(canvas):
     my_ship.update()
     a_rock.update()
     a_missile.update()
+    
+    # play sounds
+    my_ship.thruster()
             
 # timer handler that spawns a rock    
 def rock_spawner():

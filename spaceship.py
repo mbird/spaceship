@@ -194,7 +194,12 @@ def draw(canvas):
             
 # timer handler that spawns a rock    
 def rock_spawner():
-    pass
+    global a_rock
+    rock_pos = [random.randrange(WIDTH), random.randrange(HEIGHT)]
+    rock_vel = [random.random() * 2 - 1, random.random() * 2 - 1]
+    rock_ang = 0
+    rock_ang_vel = (random.random() * 2 - 1) * 0.1 # times 0.1 to slow down the rotation
+    a_rock = Sprite(rock_pos, rock_vel, rock_ang, rock_ang_vel, asteroid_image, asteroid_info)
 
 # define key handlers
 

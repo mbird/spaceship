@@ -116,6 +116,7 @@ class Ship:
             self.pos[1] += self.vel[1]
         else:
             self.pos[1] = (self.pos[1] + self.vel[1]) % nebula_info.get_size()[1]
+        # forward direction of ship
         self.angle += self.angle_vel
         self.fwd_vec = angle_to_vector(self.angle)
         # accelerate when thrusting
@@ -152,11 +153,19 @@ class Sprite:
             sound.play()
    
     def draw(self, canvas):
-        canvas.draw_circle(self.pos, self.radius, 1, "Red", "Red")
+        canvas.draw_image(self.image, self.image_center, self.image_size, self.pos, self.image_size, self.angle)
     
     def update(self):
-        pass        
-
+        self.angle += self.angle_vel
+        # wrap around when leaving screen
+        if self.pos[0] < nebula_info.get_size()[0] and self.pos[0] > 0:
+            self.pos[0] += self.vel[0]
+        else:
+            self.pos[0] = (self.pos[0] + self.vel[0]) % nebula_info.get_size()[0]
+        if self.pos[1] < nebula_info.get_size()[1] and self.pos[1] > 0:
+            self.pos[1] += self.vel[1]
+        else:
+            self.pos[1] = (self.pos[1] + self.vel[1]) % nebula_info.get_size()[1]
            
 def draw(canvas):
     global time

@@ -105,7 +105,8 @@ class Ship:
             
 
     def update(self):
-        ACCEL = 0.05 # constant to decrease acceleration
+        ACCEL = 0.05 # value to decrease acceleration
+        FRIC = 0.995 # value representing friction
         # wrap around when leaving screen
         if self.pos[0] < nebula_info.get_size()[0] and self.pos[0] > 0:
             self.pos[0] += self.vel[0]
@@ -121,6 +122,9 @@ class Ship:
         if self.thrust == True:
             self.vel[0] += self.fwd_vec[0] * ACCEL
             self.vel[1] += self.fwd_vec[1] * ACCEL
+        # friction
+        self.vel[0] *= FRIC
+        self.vel[1] *= FRIC
         
     def thruster(self):
         if self.thrust == True:

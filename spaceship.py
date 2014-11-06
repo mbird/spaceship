@@ -102,7 +102,6 @@ class Ship:
         if self.thrust == True:
             canvas.draw_image(ship_image, (ship_info.get_center()[0] + ship_info.get_size()[0], ship_info.get_center()[1]),
                                            ship_info.get_size(), self.pos, ship_info.get_size(), self.angle)
-            
 
     def update(self):
         ACCEL = 0.05 # value to decrease acceleration
@@ -132,7 +131,13 @@ class Ship:
             ship_thrust_sound.play()
         elif self.thrust == False:
             ship_thrust_sound.rewind()
-        
+            
+    def shoot(self):
+        global a_missile
+        ship_tip = [self.pos[0] + self.fwd_vec[0] * self.radius, self.pos[1] + self.fwd_vec[1] * self.radius]
+        missile_vec = [self.fwd_vec[0] * (self.vel[0] + 1), self.fwd_vec[1] * (self.vel[1] + 1)]
+        a_missile = Sprite(ship_tip, missile_vec, 0, 0, 
+                           missile_image, missile_info, missile_sound)
     
 # Sprite class
 class Sprite:
@@ -214,6 +219,9 @@ def keydown(key):
     # handler for thrust
     elif key == simplegui.KEY_MAP["up"]:
         my_ship.thrust = True
+    # handler for shooting missiles
+    elif key == simplegui.KEY_MAP["space"]:
+        my_ship.shoot()
         
 def keyup(key):
     # handlers for ship rotation

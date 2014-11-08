@@ -173,7 +173,7 @@ class Sprite:
             self.pos[1] = (self.pos[1] + self.vel[1]) % nebula_info.get_size()[1]
            
 def draw(canvas):
-    global time
+    global time, score, lives
     
     # animiate background
     time += 1
@@ -196,6 +196,11 @@ def draw(canvas):
     
     # play sounds
     my_ship.thruster()
+    
+    # draw score and lives
+    canvas.draw_text("Score: " + str(score), (15, 25), 25, "White")
+    canvas.draw_text("Lives: " + str(lives), (700, 25), 25, "White")
+
             
 # timer handler that spawns a rock    
 def rock_spawner():
